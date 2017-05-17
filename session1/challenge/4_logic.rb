@@ -10,4 +10,12 @@
 # grade(15, true)   # => "B"
 
 def grade(num_books, reads_books)
+  case num_books
+  when 0...10
+    reads_books ? "C" : "D"
+  when 10..20
+    reads_books ? "B" : "C"
+  else
+    reads_books ? "A" : "B"
+  end
 end

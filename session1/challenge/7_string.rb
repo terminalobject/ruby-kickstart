@@ -5,4 +5,5 @@
 # pirates_say_arrrrrrrrr("Pirates say arrrrrrrrr")        # => "arrrrrrrr"
 
 def pirates_say_arrrrrrrrr(string)
+  string.chars.select.with_index {|_, i| string [i] if i > 0 && (string[i-1] == "r" || string[i-1] == "R")}.join
 end

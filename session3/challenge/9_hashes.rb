@@ -22,11 +22,18 @@
 #
 # shared [1,2,3], [1,2,4]            # => [{1=>[true, true], 2=>[true, true], 3=>[true, nil], 4=>[nil, true]}, [1, 2]]
 # shared %w(a b c d), %w(aa b cc d)  # => [{"a"=>[true, nil], "b"=>[true, true], "c"=>[true, nil], "d"=>[true, true], "aa"=>[nil, true], "cc"=>[nil, true]}, ["b", "d"]]
+# shared [1,2,:c], ['a','b',:c]      # => [{1=>[true, nil], 2=>[truel, ni], :c=>[true, true], "a"=>[nil, true], "b"=>[nil, true]}, [:c]]
 # shared [], [1,2]                   # => [{1=>[nil, true], 2=>[nil, true]}, []]
 # shared [1,2], []                   # => [{1=>[true, nil], 2=>[true, nil]}, []]
 # shared [], []                      # => [{}, []]
-# shared [1,2,:c], ['a','b',:c]      # => [{1=>[true, nil], 2=>[true, nil], :c=>[true, true], "a"=>[nil, true], "b"=>[nil, true]}, [:c]]
 # shared [1,2,3], [3,2,1]            # => [{1=>[true, true], 2=>[true, true], 3=>[true, true]}, [1, 2, 3]]
 
 def shared(a, b)
+	shared = Hash.new {|hash, key| hash[key] = []}
+	shared = Hash[(a + b).map {|x| [x]}]
+	(a + b).each do |element|
+		shared[element] = [a.include?(element) ? true : nil, b.include?(element) ? true : nil] 
+	end 
+	to_return = shared.keys.select {|key| shared[key] == [true, true]}
+	return shared, to_return
 end

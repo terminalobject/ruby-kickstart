@@ -17,3 +17,10 @@
 # match_maker true,  true,  true, true, nil     # => [false, true]
 # match_maker true,  true,  true, 0, nil        # => [false, true]
 
+def match_maker(*args)
+	match_maker = []
+	arg_array = args.to_a
+	flag = arg_array[0]
+	1.step(arg_array.length - 2, 2) { |i| flag ? match_maker << (!!arg_array[i] ^ !!arg_array[i + 1]) : match_maker << (!(!!arg_array[i] ^ !!arg_array[i + 1]))}
+	return match_maker
+end 

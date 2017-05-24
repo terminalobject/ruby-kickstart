@@ -30,5 +30,11 @@
 # end
 
 
-def array_init
+def array_init(parameter = 5, &block)
+	if block
+		to_return = Array.new(parameter, &block)
+	else 
+		to_return = Array.new(parameter){|index| (index * 100).to_s} 
+	end 
+	to_return
 end

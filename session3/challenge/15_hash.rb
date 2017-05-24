@@ -30,7 +30,7 @@
 # middle head                        # => 1
 # head = {:data => 2, :next => head}
 # middle head                        # => 1
-# head = {:data => 3, :next => head}
+# head = {:data => 3, :next => head} 
 # middle head                        # => 2
 # head = {:data => 4, :next => head}
 # middle head                        # => 2
@@ -38,3 +38,12 @@
 # middle head                        # => 3
 # head = {:data => 6, :next => head}
 # middle head                        # => 3
+
+def depth(llist)
+	return 0 unless llist
+	1 + depth(llist[:next])
+end 
+def middle(llist, distance = depth(llist)/2)
+	return llist[:data] if distance == 0
+	middle(llist[:next], (distance - 1))
+end
